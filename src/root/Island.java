@@ -11,6 +11,8 @@ public class Island {
     public static Location[][] locations = new Location[8][8];
 
     public static void main(String[] args) {
+
+
         for (int x = 0; x < locations.length; x++) {
             for (int y = 0; y < locations[x].length; y++) {
                 locations[x][y] = new Location(x, y);

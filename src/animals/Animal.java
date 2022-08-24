@@ -9,7 +9,8 @@ public abstract class Animal {
     private final AnimalType type;
     private final int maxCountOnLocation;
     private Location location;
-    private double satiety;
+    private final double fullSatiety;
+    private double currentSatiety;
     private final double hunger; // Голод. На эту единицу будет уменьшаться насыщение (satiety)
     private boolean reproduceToday;
 
@@ -27,8 +28,9 @@ public abstract class Animal {
         this.weight = weight;
         this.type = type;
         this.speed = speed;
+        fullSatiety = satiety;
         hunger = satiety/9;
-        this. satiety = satiety/2;
+        currentSatiety = satiety/2;
         this.maxCountOnLocation = maxCountOnLocation;
         reproduceToday = false;
     }
@@ -88,6 +90,10 @@ public abstract class Animal {
         this.location = location;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
     public AnimalType getType() {
         return type;
     }
@@ -96,16 +102,16 @@ public abstract class Animal {
         return weight;
     }
 
-    public double getSatiety() {
-        return satiety;
+    public double getCurrentSatiety() {
+        return currentSatiety;
     }
 
-    public void setSatiety(double satiety) {
-        this.satiety = satiety;
+    public void setCurrentSatiety(double currentSatiety) {
+        this.currentSatiety = currentSatiety;
     }
     public void newDay (){
-        satiety = satiety - this.getHunger();
-        if (satiety <= 0){
+        currentSatiety = currentSatiety - this.getHunger();
+        if (currentSatiety <= 0){
             this.location.removeAnimal(this);
         }
         reproduceToday = false;
@@ -128,5 +134,13 @@ public abstract class Animal {
     @Override
     public int hashCode() {
         return type != null ? type.hashCode() : 0;
+    }
+
+    public int getMaxCountOnLocation() {
+        return maxCountOnLocation;
+    }
+
+    public double getFullSatiety() {
+        return fullSatiety;
     }
 }
