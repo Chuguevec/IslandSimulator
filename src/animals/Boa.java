@@ -19,9 +19,9 @@ static {
     canEat.put(AnimalType.DUCK, 10);
 }
 
-    public Boa(Location location) {
+    public Boa() {
 
-        super(ICO, location,weightBoa, ANIMAL_TYPE, SPEED, TO_SATIETY, MAX_COUNT_ON_LOCATION, canEat);
+        super(ICO,weightBoa, ANIMAL_TYPE, SPEED, TO_SATIETY, MAX_COUNT_ON_LOCATION, canEat);
     }
 
 

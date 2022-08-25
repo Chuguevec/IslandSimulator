@@ -12,33 +12,23 @@ public abstract class Animal {
     private final double fullSatiety;
     private double currentSatiety;
     private final double hunger; // Голод. На эту единицу будет уменьшаться насыщение (satiety)
-    private boolean reproduceToday;
 
-    public boolean isReproduceToday() {
-        return reproduceToday;
-    }
 
-    public void setReproduceToday(boolean reproduceToday) {
-        this.reproduceToday = reproduceToday;
-    }
-
-    protected Animal(String ico, Location location, double weight, AnimalType type, int speed, double satiety, int maxCountOnLocation) {
+    protected Animal(String ico, double weight, AnimalType type, int speed, double satiety, int maxCountOnLocation) {
         ICO = ico;
-        this.location = location;
         this.weight = weight;
         this.type = type;
         this.speed = speed;
         fullSatiety = satiety;
-        hunger = satiety/9;
-        currentSatiety = satiety/2;
+        hunger = satiety / 6;
+        currentSatiety = satiety / 2;
         this.maxCountOnLocation = maxCountOnLocation;
-        reproduceToday = false;
     }
 
-    public abstract void eat() ;
+    public abstract void eat();
 
 
-    public void move(Location [][] locations) {
+    public void move(Location[][] locations) {
         int x = location.getPositionX();
         int y = location.getPositionY();
         int random = (int) (Math.random() * 4);  // получаем случайное число от 0 до 4 для выбора движения
@@ -48,7 +38,7 @@ public abstract class Animal {
                 else y = y - this.speed;
             }
             case 1 -> { //двигаемся вправо
-                if (y + this.speed > locations[x].length-1) y = locations[x].length - 1;
+                if (y + this.speed > locations[x].length - 1) y = locations[x].length - 1;
                 else y = y + this.speed;
             }
             case 2 -> { //двигаемся вверх
@@ -56,29 +46,28 @@ public abstract class Animal {
                 else x = x - this.speed;
             }
             case 3 -> { //двигаемся вниз
-                if (x + this.speed > locations.length-1) x = locations.length - 1;
+                if (x + this.speed > locations.length - 1) x = locations.length - 1;
                 else x = x + this.speed;
             }
         }
-        this.location.removeAnimal( this);
+        this.location.removeAnimal(this);
         locations[x][y].addAnimal(this);
     }
-    public void reproduce(){
-        int count =0;
-        for (Predator predator : this.location.getPredators()) {
-            if (this.type.equals(predator.getType()) && !predator.isReproduceToday()){
+
+    public void reproduce() {
+        int count = 0;
+        for (Animal animal : this.location.getAnimals()) {
+            if (this.type.equals(animal.getType())) {
                 count++;
-                predator.setReproduceToday(true);
             }
         }
         if (count >= 2) {
-            for (int i = 0; i < count/2; i++) {
-                this.location.addAnimal(AnimalFactory.createAnimal(this.type, this.location));
+            for (int i = 0; i < count / 2; i++) {
+                this.location.addAnimal(AnimalFactory.createAnimal(this.type));
             }
 
         }
     }
-
 
 
     @Override
@@ -109,12 +98,12 @@ public abstract class Animal {
     public void setCurrentSatiety(double currentSatiety) {
         this.currentSatiety = currentSatiety;
     }
-    public void newDay (){
+
+    public void newDay() {
         currentSatiety = currentSatiety - this.getHunger();
-        if (currentSatiety <= 0){
+        if (currentSatiety <= 0) {
             this.location.removeAnimal(this);
         }
-        reproduceToday = false;
     }
 
     public double getHunger() {

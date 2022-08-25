@@ -19,16 +19,19 @@ public class Island {
             }
         }
         Location location = locations[3][3];
-        Wolf wolf = new Wolf(location);
-        Boa boa = new Boa(location);
+        Wolf wolf = new Wolf();
+        Boa boa = new Boa();
+        location.addAnimal(new Rabbit());
+        location.addAnimal(new Rabbit());
         location.addAnimal(wolf);
-        location.addAnimal(new Wolf(location));
+        location.addAnimal(new Wolf());
         location.addAnimal(boa);
-        location.addAnimal(new Boa(location));
+
+        location.addAnimal(new Boa());
 
         for (int i = 0; i < 10; i++) {
             printLocations();
-            reproduceAnimals();
+            System.out.println(wolf.getCurrentSatiety());
             System.out.println();
             newDayForAnimals();
         }
@@ -46,31 +49,24 @@ public class Island {
     }
 
     public static void reproduceAnimals() {
-        HashSet<Predator> uniquePredators = new HashSet<>();
-        HashSet<Herbivores> uniqueHerbivores = new HashSet<>();
+        HashSet<Animal> uniqueAnimals = new HashSet<>();
 
         for (Location[] location : locations) {
             for (Location location1 : location) {
-                uniquePredators.addAll(location1.getPredators());
-                uniqueHerbivores.addAll(location1.getHerbivores());
+                uniqueAnimals.addAll(location1.getAnimals());
             }
         }
-        for (Predator uniquePredator : uniquePredators) {
-            uniquePredator.reproduce();
+        for (Animal uniqueAnimal : uniqueAnimals) {
+            uniqueAnimal.reproduce();
         }
-        for (Herbivores uniqueHerbivore : uniqueHerbivores) {
-            uniqueHerbivore.reproduce();
-        }
+
     }
 
     public static void moveAnimals() {
         for (Location[] location : locations) {
             for (Location location1 : location) {
-                for (Predator predator : location1.getPredators()) {
-                    predator.move(locations);
-                }
-                for (Herbivores herbivore : location1.getHerbivores()) {
-                    herbivore.move(locations);
+                for (Animal animal : location1.getAnimals()) {
+                    animal.move(locations);
                 }
             }
         }
@@ -79,11 +75,8 @@ public class Island {
     public static void newDayForAnimals() {
         for (Location[] location : locations) {
             for (Location location1 : location) {
-                for (Predator predator : location1.getPredators()) {
-                    predator.newDay();
-                }
-                for (Herbivores herbivore : location1.getHerbivores()) {
-                    herbivore.newDay();
+                for (Animal animal : location1.getAnimals()) {
+                    animal.newDay();
                 }
             }
         }

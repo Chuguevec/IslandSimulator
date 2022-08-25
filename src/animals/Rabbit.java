@@ -11,8 +11,8 @@ public class Rabbit extends Herbivores{
     private static final int MAX_COUNT_ON_LOCATION = 150;
 
 
-    protected Rabbit(String ico, Location location, double weight, AnimalType type, int speed, double satiety, int maxCountOnLocation) {
-        super(ICO, location, WEIGHT, ANIMAL_TYPE, SPEED, TO_SATIETY, MAX_COUNT_ON_LOCATION);
+    public Rabbit() {
+        super(ICO, WEIGHT, ANIMAL_TYPE, SPEED, TO_SATIETY, MAX_COUNT_ON_LOCATION);
     }
 
 }

@@ -26,8 +26,8 @@ public class Wolf extends Predator {
     }
 
 
-    public Wolf(Location location) {
-        super(ICO, location, WEIGHT_WOLF, ANIMAL_TYPE, SPEED, TO_SATIETY, MAX_COUNT_ON_LOCATION, canEat);
+    public Wolf() {
+        super(ICO, WEIGHT_WOLF, ANIMAL_TYPE, SPEED, TO_SATIETY, MAX_COUNT_ON_LOCATION, canEat);
 
     }
 
