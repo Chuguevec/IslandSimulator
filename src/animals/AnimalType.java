@@ -4,7 +4,7 @@ public enum AnimalType {
     WOLF,
     BOA,
     FOX,
-    BEA,
+    BEAR,
     EAGLE,
     HORSE,
     DEER,

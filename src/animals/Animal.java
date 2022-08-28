@@ -1,6 +1,6 @@
 package animals;
 
-import root.Location;
+import main.Location;
 
 public abstract class Animal {
     private final String ICO;

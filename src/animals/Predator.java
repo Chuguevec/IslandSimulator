@@ -1,7 +1,5 @@
 package animals;
 
-import root.Location;
-
 import java.util.HashMap;
 
 public class Predator extends Animal {

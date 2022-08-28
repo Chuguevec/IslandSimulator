@@ -1,7 +1,5 @@
 package animals;
 
-import root.Location;
-
 public class AnimalFactory {
     public static Animal createAnimal (AnimalType type){
         Animal animal = null;

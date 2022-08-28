@@ -1,11 +1,8 @@
-package root;
+package main;
 
 import animals.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 public class Island {
     public static Location[][] locations = new Location[8][8];
@@ -26,12 +23,14 @@ public class Island {
         location.addAnimal(wolf);
         location.addAnimal(new Wolf());
         location.addAnimal(boa);
+        location.addPlants();
+        location.addPlants();
 
         location.addAnimal(new Boa());
 
         for (int i = 0; i < 10; i++) {
             printLocations();
-            System.out.println(wolf.getCurrentSatiety());
+            animalEat();
             System.out.println();
             newDayForAnimals();
         }
@@ -67,6 +66,15 @@ public class Island {
             for (Location location1 : location) {
                 for (Animal animal : location1.getAnimals()) {
                     animal.move(locations);
+                }
+            }
+        }
+    }
+    public static void animalEat (){
+        for (Location[] location : locations) {
+            for (Location location1 : location) {
+                for (Animal animal : location1.getAnimals()) {
+                    animal.eat();
                 }
             }
         }

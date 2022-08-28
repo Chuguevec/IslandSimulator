@@ -1,7 +1,5 @@
 package animals;
 
-import root.Location;
-
 public class Rabbit extends Herbivores{
     private static final String ICO = "🐇";
     public static final double WEIGHT = 2;

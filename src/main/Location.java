@@ -1,9 +1,6 @@
-package root;
+package main;
 
 import animals.Animal;
-import animals.Herbivores;
-import animals.Predator;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +29,6 @@ public class Location {
     }
 
     public void addAnimal  (Animal animal){
-      //  if (animal instanceof Predator){
-       //     predators.add((Predator) animal);
-      //  }else if (animal instanceof Herbivores){
-      //      herbivores.add((Herbivores) animal);
-      //  }
         animals.add(animal);
         animal.setLocation(this);
     }
@@ -44,12 +36,16 @@ public class Location {
             animals.remove(animal);
     }
 
-    public void addPlants (Plant plant){
-        plants.add(plant);
+    public void addPlants (){
+        plants.add(new Plant());
     }
 
     public List<Animal> getAnimals() {
         return animals;
+    }
+
+    public List<Plant> getPlants() {
+        return plants;
     }
 
     public int getLocationCount() {
@@ -63,4 +59,5 @@ public class Location {
     public int getPositionY() {
         return positionY;
     }
+
 }
