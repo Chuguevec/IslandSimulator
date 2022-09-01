@@ -1,6 +1,7 @@
 package animals;
 
 import main.Location;
+import main.OptionIsland;
 
 public abstract class Animal {
     private final String ICO;
@@ -21,7 +22,7 @@ public abstract class Animal {
         this.speed = speed;
         fullSatiety = satiety;
         hunger = satiety / 6;
-        currentSatiety = satiety / 2;
+        currentSatiety = (satiety / 100) * OptionIsland.SATIETY_ANIMAL_START;
         this.maxCountOnLocation = maxCountOnLocation;
     }
 

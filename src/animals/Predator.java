@@ -6,8 +6,8 @@ public class Predator extends Animal {
 
     private final HashMap <AnimalType, Integer> canEat;
 
-    public Predator(String ico, double weightWolf, AnimalType animalType, int speed, double satiety, int maxCountOnLocation, HashMap <AnimalType,Integer> canEat) {
-        super(ico,weightWolf,animalType, speed, satiety, maxCountOnLocation);
+    public Predator(String ico, double weight, AnimalType animalType, int speed, double satiety, int maxCountOnLocation, HashMap <AnimalType,Integer> canEat) {
+        super(ico,weight,animalType, speed, satiety, maxCountOnLocation);
         this.canEat = canEat;
     }
 

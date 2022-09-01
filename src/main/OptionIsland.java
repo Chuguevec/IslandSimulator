@@ -4,6 +4,7 @@ public class OptionIsland {
     public static int HEIGHT_ISLAND;
     public static int WIDTH_ISLAND;
     public static  int NUMBER_ANIMAL_IN_LOCATION;
+    public static int SATIETY_ANIMAL_START = 50; //Сытость животоного при добавлении в процентах
 
     //Количество животных на старте симуляции
     public static int wolf =2;
