@@ -5,49 +5,32 @@ import animals.*;
 import java.util.HashSet;
 
 public class Island {
-    public static Location[][] locations = new Location[8][8];
+    public Location[][] locations;
 
-    public static void main(String[] args) {
+    public Island() {
+        locations = new Location[OptionIsland.HEIGHT_ISLAND][OptionIsland.WIDTH_ISLAND];
+        initialize();
+    }
 
-
+    private void initialize() {
         for (int x = 0; x < locations.length; x++) {
             for (int y = 0; y < locations[x].length; y++) {
                 locations[x][y] = new Location(x, y);
             }
         }
-        Location location = locations[3][3];
-        Wolf wolf = new Wolf();
-        Boa boa = new Boa();
-        location.addAnimal(new Rabbit());
-        location.addAnimal(new Rabbit());
-        location.addAnimal(wolf);
-        location.addAnimal(new Wolf());
-        location.addAnimal(boa);
-        location.addPlants();
-        location.addPlants();
-
-        location.addAnimal(new Boa());
-
-        for (int i = 0; i < 10; i++) {
-            printLocations();
-            animalEat();
-            System.out.println();
-            newDayForAnimals();
-        }
-        printLocations();
-
     }
 
-    public static void printLocations() {
-        for (int x = 0; x < locations.length; x++) {
-            for (int y = 0; y < locations[x].length; y++) {
-                System.out.print(locations[x][y] + "\t");
+    public void printLocations() {
+        for (Location[] location : locations) {
+            for (Location value : location) {
+                System.out.print(value + "\t");
             }
             System.out.println();
         }
     }
 
-    public static void reproduceAnimals() {
+
+   /* public static void reproduceAnimals() {
         HashSet<Animal> uniqueAnimals = new HashSet<>();
 
         for (Location[] location : locations) {
@@ -70,7 +53,8 @@ public class Island {
             }
         }
     }
-    public static void animalEat (){
+
+    public static void animalEat() {
         for (Location[] location : locations) {
             for (Location location1 : location) {
                 for (Animal animal : location1.getAnimals()) {
@@ -88,5 +72,6 @@ public class Island {
                 }
             }
         }
-    }
+    }*/
 }
+

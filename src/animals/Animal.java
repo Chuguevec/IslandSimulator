@@ -28,7 +28,6 @@ public abstract class Animal {
 
     public abstract void eat();
 
-
     public void move(Location[][] locations) {
         int x = location.getPositionX();
         int y = location.getPositionY();
@@ -70,12 +69,14 @@ public abstract class Animal {
         }
     }
 
-
-    @Override
-    public String toString() {
-        return ICO;
+    public void newDay() {
+        currentSatiety = currentSatiety - this.getHunger();
+        if (currentSatiety <= 0) {
+            this.location.removeAnimal(this);
+        }
     }
 
+    //setter and getters
     public void setLocation(Location location) {
         this.location = location;
     }
@@ -100,15 +101,22 @@ public abstract class Animal {
         this.currentSatiety = currentSatiety;
     }
 
-    public void newDay() {
-        currentSatiety = currentSatiety - this.getHunger();
-        if (currentSatiety <= 0) {
-            this.location.removeAnimal(this);
-        }
-    }
-
     public double getHunger() {
         return hunger;
+    }
+
+    public int getMaxCountOnLocation() {
+        return maxCountOnLocation;
+    }
+
+    public double getFullSatiety() {
+        return fullSatiety;
+    }
+
+    //Override
+    @Override
+    public String toString() {
+        return ICO;
     }
 
     @Override
@@ -126,11 +134,7 @@ public abstract class Animal {
         return type != null ? type.hashCode() : 0;
     }
 
-    public int getMaxCountOnLocation() {
-        return maxCountOnLocation;
-    }
 
-    public double getFullSatiety() {
-        return fullSatiety;
-    }
+
+
 }

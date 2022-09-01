@@ -9,10 +9,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Location {
     private static int count = 1;
     private final int locationCount;
-    private final List <Animal> animals;
-   private final List <Plant> plants;
-   private final int positionX;
-   private final int positionY;
+    private final List<Animal> animals;
+    private final List<Plant> plants;
+    private final int positionX;
+    private final int positionY;
 
     public Location(int positionX, int positionY) {
         plants = new ArrayList<>();
@@ -23,22 +23,20 @@ public class Location {
         this.positionY = positionY;
     }
 
-    @Override
-    public String toString() {
-        return "L" + locationCount  + animals + plants;
+    public void addPlants() {
+        plants.add(new Plant());
     }
 
-    public void addAnimal  (Animal animal){
+    public void addAnimal(Animal animal) {
         animals.add(animal);
         animal.setLocation(this);
     }
-    public void removeAnimal  (Animal animal){
-            animals.remove(animal);
+
+    public void removeAnimal(Animal animal) {
+        animals.remove(animal);
     }
 
-    public void addPlants (){
-        plants.add(new Plant());
-    }
+
 
     public List<Animal> getAnimals() {
         return animals;
@@ -58,6 +56,11 @@ public class Location {
 
     public int getPositionY() {
         return positionY;
+    }
+
+    @Override
+    public String toString() {
+        return "L" + locationCount + animals + plants;
     }
 
 }
