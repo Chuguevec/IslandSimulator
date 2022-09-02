@@ -3,7 +3,7 @@ package animals;
 import java.util.HashMap;
 
 public class Duck extends Herbivores implements EatAnimal{
-    private static final String ICO = "\uD83D\uDC03";
+    private static final String ICO = "\uD83E\uDD86";
     public static final double WEIGHT = 1;
     private static final int MAX_COUNT_ON_LOCATION = 200;
     public static final int SPEED = 4;
@@ -22,7 +22,7 @@ public class Duck extends Herbivores implements EatAnimal{
     @Override
     public void eat() {
         super.eat();
-        if (getCurrentSatiety() < getFullSatiety()){
+        if (isHungry()){
             eatAnimal(this, canEat);
         }
     }

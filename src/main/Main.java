@@ -4,22 +4,16 @@ import animals.Boa;
 import animals.Rabbit;
 import animals.Wolf;
 
+import java.util.concurrent.*;
+
 public class Main {
     public static void main(String[] args) {
         Island island = new Island();
 
-        Location location = island.locations[3][3];
-        Wolf wolf = new Wolf();
-        Boa boa = new Boa();
-        location.addAnimal(new Rabbit());
-        location.addAnimal(new Rabbit());
-        location.addAnimal(wolf);
-        location.addAnimal(new Wolf());
-        location.addAnimal(boa);
-        location.addPlants();
-        location.addPlants();
 
-        location.addAnimal(new Boa());
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
+
+        island.printLocations();
 
 //        for (int i = 0; i < 10; i++) {
 //            printLocations();

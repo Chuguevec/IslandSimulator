@@ -1,8 +1,9 @@
 package animals;
 
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class Predator extends Animal {
+public abstract class Predator extends Animal {
 
     private final HashMap <AnimalType, Integer> canEat;
 
@@ -13,15 +14,15 @@ public class Predator extends Animal {
 
     @Override
     public void eat() {
-        if (getCurrentSatiety() < getFullSatiety()){
+        if (isHungry()){
             for (Animal animal : getLocation().getAnimals()) {
                 if (canEat.containsKey(animal.getType())){
-                    int random = (int) (Math.random()*100);
+                    int random = ThreadLocalRandom.current().nextInt(100);
                     int percentEat = canEat.get(animal.getType());
                     if (random <= percentEat){
-                        this.setCurrentSatiety( getCurrentSatiety() + animal.getWeight());
+                        this.setCurrentSatiety(Math.min(getCurrentSatiety() + animal.getWeight(), getFullSatiety()));
                         this.getLocation().removeAnimal(animal);
-                        if (getCurrentSatiety() < getFullSatiety()) break;
+                        if (!isHungry()) break;
                     }
                 }
             }

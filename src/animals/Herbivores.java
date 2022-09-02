@@ -4,7 +4,7 @@ package animals;
 import main.Plant;
 import java.util.List;
 
-public class Herbivores extends Animal {
+public abstract class Herbivores extends Animal {
 
 
     protected Herbivores(String ico, double weight, AnimalType type, int speed, double satiety, int maxCountOnLocation) {
@@ -15,8 +15,8 @@ public class Herbivores extends Animal {
     public void eat() {
         List<Plant> plants = this.getLocation().getPlants();
         int count = 0;
-        while (!plants.isEmpty() && this.getCurrentSatiety() < this.getFullSatiety()) {
-            setCurrentSatiety(getCurrentSatiety() + Plant.WEIGHT);
+        while (!plants.isEmpty() && isHungry()) {
+            setCurrentSatiety(Math.min(getCurrentSatiety() + Plant.WEIGHT, getFullSatiety()));
             plants.remove(plants.size() - 1);
             count++;
         }

@@ -24,7 +24,10 @@ public class Location {
     }
 
     public void addPlants() {
-        plants.add(new Plant());
+        if (OptionIsland.NUMBER_PLANT_IN_LOCATION > plants.size()){
+            plants.add(new Plant());
+        }
+
     }
 
     public void addAnimal(Animal animal) {

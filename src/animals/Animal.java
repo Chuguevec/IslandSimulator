@@ -76,6 +76,10 @@ public abstract class Animal {
         }
     }
 
+    public boolean isHungry (){
+        return (currentSatiety < fullSatiety);
+    }
+
     //setter and getters
     public void setLocation(Location location) {
         this.location = location;

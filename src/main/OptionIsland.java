@@ -1,13 +1,15 @@
 package main;
 
 public class OptionIsland {
-    public static int HEIGHT_ISLAND;
-    public static int WIDTH_ISLAND;
-    public static  int NUMBER_ANIMAL_IN_LOCATION;
+    public static int HEIGHT_ISLAND =10; //высота острова
+    public static int WIDTH_ISLAND = 10; //ширина острова
+    public static  int NUMBER_ANIMAL_IN_LOCATION = 30; //Максимальное колличество животных в одной локации
+    public static  int NUMBER_PLANT_IN_LOCATION = 10; //Максимальное колличество растений в одной локации
+    public static  int NUMBER_PLANT_GROWTH_1DAY = 10; //Колличество растений вырещенных за день на острове
     public static int SATIETY_ANIMAL_START = 50; //Сытость животоного при добавлении в процентах
 
     //Количество животных на старте симуляции
-    public static int wolf =2;
+    public static int wolf =4;
     public static int boa =2;
     public static int fox =2;
     public static int bear =2;
@@ -22,5 +24,7 @@ public class OptionIsland {
     public static int buffalo =2;
     public static int duck =2;
     public static int caterpillar =2;
+
+
 
 }
