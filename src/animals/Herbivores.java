@@ -2,6 +2,8 @@ package animals;
 
 
 import main.Plant;
+import main.Statistics;
+
 import java.util.List;
 
 public abstract class Herbivores extends Animal {
@@ -21,7 +23,10 @@ public abstract class Herbivores extends Animal {
             count++;
         }
         // переделать на передачу в статистику
-        if (count > 0) System.out.println(this.getType() + " в локации "+ this.getLocation().getLocationCount() + " съел растений: " + count);
+        if (count > 0){
+            String toStatistic = (this.getType() + " в локации "+ this.getLocation().getLocationCount() + " съел растений: " + count);
+            Statistics.putToEatStat(toStatistic);
+        }
     }
 
 }

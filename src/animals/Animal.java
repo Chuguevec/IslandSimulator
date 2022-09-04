@@ -1,7 +1,11 @@
 package animals;
 
+import main.Island;
 import main.Location;
 import main.OptionIsland;
+import main.Statistics;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal {
     private final String ICO;
@@ -21,7 +25,7 @@ public abstract class Animal {
         this.type = type;
         this.speed = speed;
         fullSatiety = satiety;
-        hunger = satiety / 6;
+        hunger = satiety / 8;
         currentSatiety = (satiety / 100) * OptionIsland.SATIETY_ANIMAL_START;
         this.maxCountOnLocation = maxCountOnLocation;
     }
@@ -31,52 +35,87 @@ public abstract class Animal {
     public void move(Location[][] locations) {
         int x = location.getPositionX();
         int y = location.getPositionY();
-        int random = (int) (Math.random() * 4);  // получаем случайное число от 0 до 4 для выбора движения
-        switch (random) {
-            case 0 -> { //двигаемся влево
-                if (y - this.speed < 0) y = 0;
-                else y = y - this.speed;
-            }
-            case 1 -> { //двигаемся вправо
-                if (y + this.speed > locations[x].length - 1) y = locations[x].length - 1;
-                else y = y + this.speed;
-            }
-            case 2 -> { //двигаемся вверх
-                if (x - this.speed < 0) x = 0;
-                else x = x - this.speed;
-            }
-            case 3 -> { //двигаемся вниз
-                if (x + this.speed > locations.length - 1) x = locations.length - 1;
-                else x = x + this.speed;
+        int random = ThreadLocalRandom.current().nextInt(4);
+        if (random == 0) { //двигаемся влево
+            y = Math.max(y - this.speed, 0);
+            if (this.location.getLocationCount() == locations[x][y].getLocationCount()) {
+                y = Math.min(y + this.speed, locations[x].length - 1);
             }
         }
+        if (random == 1) { //двигаемся вправо
+            y = Math.min(y + this.speed, locations[x].length - 1);
+            if (this.location.getLocationCount() == locations[x][y].getLocationCount()) {
+                y = Math.max(y - this.speed, 0);
+            }
+        }
+        if (random == 2) { //двигаемся вверх
+            x = Math.max(x - this.speed, 0);
+            if (this.location == locations[x][y]) {
+                x = Math.min(x + this.speed, locations.length - 1);
+            }
+        }
+        if (random == 3) { //двигаемся вниз
+            x = Math.min(x + this.speed, locations.length - 1);
+            if (this.location.getLocationCount() == locations[x][y].getLocationCount()) {
+                x = Math.max(x - this.speed, 0);
+            }
+
+        }
+
+        String toStatistic = (this.getType() + " переместился из Локации -" +
+                this.getLocation().getLocationCount() +
+                " в локацию - " + locations[x][y].getLocationCount());
         this.location.removeAnimal(this);
-        locations[x][y].addAnimal(this);
+        locations[x][y].
+
+                addAnimal(this);
+        Statistics.putToMoveStat(toStatistic);
     }
 
     public void reproduce() {
-        int count = 0;
-        for (Animal animal : this.location.getAnimals()) {
-            if (this.type.equals(animal.getType())) {
-                count++;
+        if (checkMaxCountOnLocation()) {
+            int count = 0;
+            for (Animal animal : this.location.getAnimals()) {
+                if (this.type.equals(animal.getType())) {
+                    count++;
+                }
             }
-        }
-        if (count >= 2) {
-            for (int i = 0; i < count / 2; i++) {
-                this.location.addAnimal(AnimalFactory.createAnimal(this.type));
+            if (count >= 2) {
+                for (int i = 0; i < count / 2; i++) {
+                    if (checkMaxCountOnLocation()) {
+                        this.location.addAnimal(AnimalFactory.createAnimal(this.type));
+                    }
+                }
+                String toStatistic = "В локации - " + this.getLocation().getLocationCount() +
+                        ",У " + count + " " + this.getType() + " родилось: " + count / 2 + " " + getType();
+                Statistics.putToReproduceStat(toStatistic);
             }
-
         }
     }
 
     public void newDay() {
         currentSatiety = currentSatiety - this.getHunger();
-        if (currentSatiety <= 0) {
+        if (currentSatiety < 0) {
             this.location.removeAnimal(this);
+            String toStatistics = "В локации - " + this.getLocation().getLocationCount() +
+                    " умер от голода " + this.getType();
+            Statistics.putToReproduceStat(toStatistics);
+            if (this instanceof Predator) Island.decrementPredatorCount();
         }
     }
 
-    public boolean isHungry (){
+    private boolean checkMaxCountOnLocation() {
+        int currentCountThisType = 0;
+        int currentCountAllAnimals = this.getLocation().getAnimals().size();
+        for (Animal animal : this.getLocation().getAnimals()) {
+            if (this.getType().equals(animal.getType())) {
+                currentCountThisType++;
+            }
+        }
+        return currentCountThisType < this.maxCountOnLocation && currentCountAllAnimals < OptionIsland.NUMBER_ANIMAL_IN_LOCATION;
+    }
+
+    public boolean isHungry() {
         return (currentSatiety < fullSatiety);
     }
 
@@ -137,8 +176,6 @@ public abstract class Animal {
     public int hashCode() {
         return type != null ? type.hashCode() : 0;
     }
-
-
 
 
 }

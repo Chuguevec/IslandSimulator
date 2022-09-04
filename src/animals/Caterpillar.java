@@ -12,4 +12,8 @@ public class Caterpillar extends Herbivores {
     public Caterpillar () {
         super(ICO, WEIGHT, ANIMAL_TYPE, SPEED, FULL_SATIETY, MAX_COUNT_ON_LOCATION);
     }
+
+    @Override
+    public void newDay() {
+    }
 }

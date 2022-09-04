@@ -11,7 +11,7 @@ public class Duck extends Herbivores implements EatAnimal{
     private static final AnimalType ANIMAL_TYPE = AnimalType.DUCK;
     private static final HashMap<AnimalType, Integer> canEat = new HashMap<>();
 
-    {
+  static {
         canEat.put(AnimalType.CATERPILLAR,90);
     }
 

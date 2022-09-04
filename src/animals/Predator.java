@@ -1,5 +1,7 @@
 package animals;
 
+import main.Statistics;
+
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -22,6 +24,8 @@ public abstract class Predator extends Animal {
                     if (random <= percentEat){
                         this.setCurrentSatiety(Math.min(getCurrentSatiety() + animal.getWeight(), getFullSatiety()));
                         this.getLocation().removeAnimal(animal);
+                        String toStatistic = this.getType() + " съел -" + animal.getType() + " в локации - " + this.getLocation().getLocationCount();
+                        Statistics.putToEatStat(toStatistic);
                         if (!isHungry()) break;
                     }
                 }

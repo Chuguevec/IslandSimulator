@@ -1,5 +1,7 @@
 package animals;
 
+import main.Statistics;
+
 import java.util.HashMap;
 
 public interface EatAnimal {
@@ -13,6 +15,8 @@ public interface EatAnimal {
                     if (random <= percentEat){
                         predator.setCurrentSatiety( predator.getCurrentSatiety() + animal.getWeight());
                         predator.getLocation().removeAnimal(animal);
+                        String toStatistic = predator.getType() + " съел -" + animal.getType() + " в локации - " + predator.getLocation().getLocationCount();
+                        Statistics.putToEatStat(toStatistic);
                         if (predator.getCurrentSatiety() < predator.getFullSatiety()) break;
                     }
                 }

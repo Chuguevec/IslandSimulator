@@ -1,15 +1,13 @@
 package main;
-
 import animals.*;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static animals.AnimalType.WOLF;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Island {
     public Location[][] locations;
+    private static volatile int predatorCount;
+    private static final Object monitor = new Object();
     private static final HashMap<AnimalType, Integer> startAnimals = new HashMap<>();
 
     static {
@@ -34,6 +32,24 @@ public class Island {
     public Island() {
         locations = new Location[OptionIsland.HEIGHT_ISLAND][OptionIsland.WIDTH_ISLAND];
         initialize();
+    }
+
+    public static void incrementPredatorCount() {
+        synchronized (monitor){
+            predatorCount++;
+        }
+
+    }
+
+    public static void decrementPredatorCount() {
+        synchronized (monitor){
+            predatorCount--;
+        }
+
+    }
+
+    public static int getPredatorCount() {
+        return predatorCount;
     }
 
     private void initialize() {
@@ -71,50 +87,5 @@ public class Island {
         int randomY = ThreadLocalRandom.current().nextInt(OptionIsland.WIDTH_ISLAND);
         return locations[randomX][randomY];
     }
-
-
-   /* public static void reproduceAnimals() {
-        HashSet<Animal> uniqueAnimals = new HashSet<>();
-
-        for (Location[] location : locations) {
-            for (Location location1 : location) {
-                uniqueAnimals.addAll(location1.getAnimals());
-            }
-        }
-        for (Animal uniqueAnimal : uniqueAnimals) {
-            uniqueAnimal.reproduce();
-        }
-
-    }
-
-    public static void moveAnimals() {
-        for (Location[] location : locations) {
-            for (Location location1 : location) {
-                for (Animal animal : location1.getAnimals()) {
-                    animal.move(locations);
-                }
-            }
-        }
-    }
-
-    public static void animalEat() {
-        for (Location[] location : locations) {
-            for (Location location1 : location) {
-                for (Animal animal : location1.getAnimals()) {
-                    animal.eat();
-                }
-            }
-        }
-    }
-
-    public static void newDayForAnimals() {
-        for (Location[] location : locations) {
-            for (Location location1 : location) {
-                for (Animal animal : location1.getAnimals()) {
-                    animal.newDay();
-                }
-            }
-        }
-    }*/
 }
 

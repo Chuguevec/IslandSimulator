@@ -15,7 +15,7 @@ public class Location {
     private final int positionY;
 
     public Location(int positionX, int positionY) {
-        plants = new ArrayList<>();
+        plants = new CopyOnWriteArrayList<>();
         animals = new CopyOnWriteArrayList<>();
         locationCount = count;
         count++;

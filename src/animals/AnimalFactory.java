@@ -1,5 +1,7 @@
 package animals;
 
+import main.Island;
+
 public class AnimalFactory {
     public static Animal createAnimal (AnimalType type){
         Animal animal = null;
@@ -21,7 +23,7 @@ public class AnimalFactory {
             case MOUSE -> animal = new Mouse();
             case SHEEP -> animal = new Sheep();
         }
-
+            if (animal instanceof Predator) Island.incrementPredatorCount();
         return animal;
     }
 }
