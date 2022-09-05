@@ -18,6 +18,10 @@ public class Actions {
         locations = island.locations;
     }
 
+    public static void esShutDown (){
+        executorService.shutdown();
+    }
+
 
     //Таски
     //Рост растений
@@ -33,7 +37,7 @@ public class Actions {
     }
 
     //Таск - Новый день
-    public void newDayForAnimals() {
+    private void newDayForAnimals() {
         dayCount++;
         for (Location[] location : locations) {
             for (Location location1 : location) {

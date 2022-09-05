@@ -1,7 +1,5 @@
 package main;
 
-import animals.Predator;
-
 import java.util.concurrent.*;
 
 public class Main {
@@ -21,8 +19,9 @@ public class Main {
             public void run() {
                 int predatorCount = Island.getPredatorCount();
                 if (predatorCount == 0) {
-                    executorService.shutdown();
+                    Actions.esShutDown();
                     System.out.println("Все хищники погибли");
+                    executorService.shutdown();
                 }
             }
         };
