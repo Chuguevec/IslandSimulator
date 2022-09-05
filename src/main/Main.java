@@ -20,7 +20,7 @@ public class Main {
                 int predatorCount = Island.getPredatorCount();
                 if (predatorCount == 0) {
                     Actions.esShutDown();
-                    System.out.println("Все хищники погибли");
+                    System.out.println("Все хищники погибли!");
                     executorService.shutdown();
                 }
             }
